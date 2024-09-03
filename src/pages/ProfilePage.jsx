@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
-import { FaPlus } from 'react-icons/fa'; // Import the plus icon
+import { FaPlus } from 'react-icons/fa';
 
 const ProfilePageContainer = styled.div`
   display: flex;
@@ -109,6 +109,43 @@ const SkillIcon = styled.img`
   border-radius: 10px;
 `;
 
+const AddSkillContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
+
+const SkillSearchInput = styled.input`
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  margin-bottom: 10px;
+`;
+
+const SuggestionList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  position: relative;
+  z-index: 10;
+`;
+
+const SuggestionItem = styled.li`
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f1f1;
+  }
+`;
+
 const ConversationListHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -199,7 +236,7 @@ const ProjectCard = styled.div`
     transform: translateY(-5px); /* Slightly lift the card */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Deepen the shadow */
   }
-  `;
+`;
 
 const ProjectImage = styled.img`
   width: 100%;
@@ -240,7 +277,8 @@ const ProjectButton = styled.button`
 
   &:active {
     background-color: #003f7f;
-    transform: scale(0.98); /
+    transform: scale(0.98);
+  }
 `;
 
 const NewProjectCard = styled(ProjectCard)`
@@ -256,7 +294,42 @@ const NewProjectText = styled.h3`
   text-align: center;
 `;
 
+
+
 const ProfilePage = () => {
+  const [skills, setSkills] = useState([
+    'Java', 'React', 'Node.js', 'HTML', 'CSS', 'JavaScript', 'Python', 'MySQL', 'PostgreSQL', 'Firebase', 'SQLite', 'MongoDB'
+  ]);
+
+  const [availableSkills] = useState([
+    'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Kotlin', 'Go', 'TypeScript', 'Scala', 'Rust'
+  ]);
+
+  const [skillSearch, setSkillSearch] = useState('');
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
+  const handleSkillSearch = (e) => {
+    const query = e.target.value;
+    setSkillSearch(query);
+    if (query) {
+      const filtered = availableSkills.filter(skill =>
+        skill.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredSkills(filtered);
+    } else {
+      setFilteredSkills([]);
+    }
+  };
+
+  const handleAddSkill = (skill) => {
+    if (skill && !skills.includes(skill)) {
+      setSkills([...skills, skill]);
+    }
+    setSkillSearch('');
+    setFilteredSkills([]);
+  };
+
+
   return (
     <ProfilePageContainer>
       <SidebarWrapper>
@@ -284,19 +357,28 @@ const ProfilePage = () => {
           <InfoCard>
             <CardTitle>Skills</CardTitle>
             <SkillsContainer>
-              <SkillIcon src="/icons/java.png" alt="Java" />
-              <SkillIcon src="/icons/react.png" alt="React" />
-              <SkillIcon src="/icons/nodejs.png" alt="Node.js" />
-              <SkillIcon src="/icons/html.png" alt="HTML" />
-              <SkillIcon src="/icons/css.png" alt="CSS" />
-              <SkillIcon src="/icons/javascript.png" alt="JavaScript" />
-              <SkillIcon src="/icons/python.png" alt="Python" />
-              <SkillIcon src="/icons/mysql.png" alt="MySQL" />
-              <SkillIcon src="/icons/postgres.png" alt="PostgreSQL" />
-              <SkillIcon src="/icons/firebase.png" alt="Firebase" />
-              <SkillIcon src="/icons/sqlite.png" alt="SQLite" />
-              <SkillIcon src="/icons/mongodb.png" alt="MongoDB" />
+              {skills.map(skill => (
+                <SkillIcon key={skill} src={`/icons/${skill.toLowerCase()}.png`} alt={skill} />
+              ))}
             </SkillsContainer>
+
+            <AddSkillContainer>
+              <SkillSearchInput
+                type="text"
+                placeholder="Search for a skill..."
+                value={skillSearch}
+                onChange={handleSkillSearch}
+              />
+              {filteredSkills.length > 0 && (
+                <SuggestionList>
+                  {filteredSkills.map(skill => (
+                    <SuggestionItem key={skill} onClick={() => handleAddSkill(skill)}>
+                      {skill}
+                    </SuggestionItem>
+                  ))}
+                </SuggestionList>
+              )}
+            </AddSkillContainer>
           </InfoCard>
 
           <InfoCard>
@@ -349,7 +431,6 @@ const ProfilePage = () => {
           </InfoCard>
         </InfoSectionsContainer>
 
-        {/* New Section for Personal Projects */}
         <ProjectsSection>
           <ProjectsHeader>Personal Projects</ProjectsHeader>
           <ProjectsContainer>
