@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
 import { FaPlus } from 'react-icons/fa';
+import { supabase } from '../supabaseClient';
 
 const ProfilePageContainer = styled.div`
   display: flex;
@@ -286,6 +287,7 @@ const NewProjectCard = styled(ProjectCard)`
   justify-content: center;
   align-items: center;
   border: 2px dashed #007bff;
+  cursor: pointer;
 `;
 
 const NewProjectText = styled.h3`
@@ -294,6 +296,75 @@ const NewProjectText = styled.h3`
   text-align: center;
 `;
 
+const NewProjectModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  max-width: 90%;
+`;
+
+const ModalHeader = styled.h2`
+  margin-bottom: 20px;
+`;
+
+const ModalInput = styled.input`
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const ModalTextArea = styled.textarea`
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+`;
+
+const ModalButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const CloseButton = styled.button`
+  background-color: red;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: darkred;
+  }
+`;
 
 
 const ProfilePage = () => {
@@ -327,6 +398,50 @@ const ProfilePage = () => {
     }
     setSkillSearch('');
     setFilteredSkills([]);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newProjectTitle, setNewProjectTitle] = useState('');
+  const [newProjectType, setNewProjectType] = useState('');
+  const [newProjectLanguages, setNewProjectLanguages] = useState('');
+  const [newProjectDescription, setNewProjectDescription] = useState('');
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleSaveProject = async () => {
+    try {
+      // Getting current user details from local storage
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const email = user?.email;
+      const name = `${user?.first_name} ${user?.last_name}`;
+
+      const { error } = await supabase.from('experience').insert([
+        {
+          user_email:email,
+          project_title: newProjectTitle,
+          project_type: newProjectType,
+          skills: newProjectLanguages,
+          project_description: newProjectDescription,
+          user_name: name,
+        },
+      ]);
+
+      if (error) {
+        throw error;
+      }
+
+      // Reset form fields
+      setNewProjectTitle('');
+      setNewProjectType('');
+      setNewProjectLanguages('');
+      setNewProjectDescription('');
+
+      toggleModal(); // Close the modal after saving
+    } catch (error) {
+      console.error('Error adding new project:', error.message);
+    }
   };
 
 
@@ -470,11 +585,48 @@ const ProfilePage = () => {
               </ProjectContent>
             </ProjectCard>
 
-            <NewProjectCard>
-              <NewProjectText>NEW PROJECT <FaPlus /></NewProjectText>
+            <NewProjectCard onClick={toggleModal}>
+              <FaPlus size={50} color="#007bff" />
+              <NewProjectText>Add New Project</NewProjectText>
             </NewProjectCard>
           </ProjectsContainer>
         </ProjectsSection>
+        {isModalOpen && (
+          <NewProjectModal>
+            <ModalContent>
+              <ModalHeader>Add New Project</ModalHeader>
+              <ModalInput
+                type="text"
+                placeholder="Project Title"
+                value={newProjectTitle}
+                onChange={(e) => setNewProjectTitle(e.target.value)}
+              />
+              <ModalInput
+                type="text"
+                placeholder="Project Type"
+                value={newProjectType}
+                onChange={(e) => setNewProjectType(e.target.value)}
+              />
+              <ModalInput
+                type="text"
+                placeholder="Languages Used"
+                value={newProjectLanguages}
+                onChange={(e) => setNewProjectLanguages(e.target.value)}
+              />
+              <ModalTextArea
+                rows="3"
+                placeholder="Project Description (max 50 words)"
+                maxLength={50}
+                value={newProjectDescription}
+                onChange={(e) => setNewProjectDescription(e.target.value)}
+              />
+              <div>
+                <ModalButton onClick={handleSaveProject}>Save Project</ModalButton>
+                <CloseButton onClick={toggleModal}>Cancel</CloseButton>
+              </div>
+            </ModalContent>
+          </NewProjectModal>
+        )}
 
       </Content>
     </ProfilePageContainer>
