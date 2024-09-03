@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
 import { FaPlus } from 'react-icons/fa';
@@ -375,6 +375,7 @@ const ProfilePage = () => {
   const [availableSkills] = useState([
     'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'Kotlin', 'Go', 'TypeScript', 'Scala', 'Rust'
   ]);
+  const [projects, setProjects] = useState([]);
 
   const [skillSearch, setSkillSearch] = useState('');
   const [filteredSkills, setFilteredSkills] = useState([]);
@@ -444,6 +445,25 @@ const ProfilePage = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('experience')
+          .select('*');
+
+        if (error) {
+          throw error;
+        }
+
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error.message);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <ProfilePageContainer>
@@ -549,41 +569,17 @@ const ProfilePage = () => {
         <ProjectsSection>
           <ProjectsHeader>Personal Projects</ProjectsHeader>
           <ProjectsContainer>
-            <ProjectCard>
-              <ProjectImage src="banner.jpg" alt="Project 1" />
+          {projects.map((project) => (
+            <ProjectCard key={project.id}>
+              <ProjectImage src="banner.jpg" alt={project.project_title} />
               <ProjectContent>
-                <ProjectTitle>Project #1</ProjectTitle>
-                <ProjectSubtitle>
-                  Modern
-                </ProjectSubtitle>
-                <p>As Uber works through a huge amount of internal management turmoil.</p>
+                <ProjectTitle>{project.project_title}</ProjectTitle>
+                <ProjectSubtitle>{project.project_type}</ProjectSubtitle>
+                <p>{project.project_description}</p>
                 <ProjectButton>VIEW PROJECT</ProjectButton>
               </ProjectContent>
             </ProjectCard>
-
-            <ProjectCard>
-              <ProjectImage src="banner.jpg" alt="Project 2" />
-              <ProjectContent>
-                <ProjectTitle>Project #2</ProjectTitle>
-                <ProjectSubtitle>
-                  Modern
-                </ProjectSubtitle>
-                <p>As Uber works through a huge amount of internal management turmoil.</p>
-                <ProjectButton>VIEW PROJECT</ProjectButton>
-              </ProjectContent>
-            </ProjectCard>
-
-            <ProjectCard>
-              <ProjectImage src="banner.jpg" alt="Project 3" />
-              <ProjectContent>
-                <ProjectTitle>Project #3</ProjectTitle>
-                <ProjectSubtitle>
-                  Modern
-                </ProjectSubtitle>
-                <p>As Uber works through a huge amount of internal management turmoil.</p>
-                <ProjectButton>VIEW PROJECT</ProjectButton>
-              </ProjectContent>
-            </ProjectCard>
+            ))}
 
             <NewProjectCard onClick={toggleModal}>
               <FaPlus size={50} color="#007bff" />
