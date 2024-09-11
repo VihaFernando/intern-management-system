@@ -50,18 +50,19 @@ const MeetingsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  width: 100%;
   margin-bottom: 30px;
 `;
 
 // Individual Meeting Cards (updated for image style)
 const MeetingCard = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   background-color: ${({ color }) => color || 'white'};
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 250px;
   position: relative;
 `;
 
@@ -89,6 +90,7 @@ const JoinButton = styled.button`
 const AttendiceJoin = styled.div`
   display: inline-flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 // Meeting Info Section (Date, Time)
