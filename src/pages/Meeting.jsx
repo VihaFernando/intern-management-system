@@ -19,7 +19,6 @@ const SidebarContainer = styled.div`
   box-sizing: border-box; 
 `;
 
-
 // Right Container for the content (middle content, calendar, and tasks)
 const ContentContainer = styled.div`
   display: flex;
@@ -52,26 +51,28 @@ const MeetingsSection = styled.div`
   margin-bottom: 30px;
 `;
 
-// Individual Meeting Cards
+// Individual Meeting Cards (updated for image style)
 const MeetingCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ color }) => color || 'white'};
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 250px;
+  position: relative;
 `;
 
-// Meeting Title and Join Button
+// Meeting Title
 const MeetingTitle = styled.div`
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 10px;
 `;
 
+// Join Button (styled to match the image)
 const JoinButton = styled.button`
-  background-color: #ff5b5b;
+  background-color: ${({ color }) => color || '#5f5fff'};
   color: white;
   border: none;
   padding: 10px 20px;
@@ -80,24 +81,46 @@ const JoinButton = styled.button`
   margin-top: 10px;
   align-self: flex-end;
   &:hover {
-    background-color: #ff3a3a;
+    background-color: darken(${({ color }) => color || '#5f5fff'}, 10%);
   }
 `;
 
-// Meeting Info Section
+// Meeting Info Section (Date, Time)
 const MeetingInfo = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
   color: #777;
+  margin-bottom: 15px;
+`;
+
+// Attendee Icons Container
+const AttendeesContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// Attendee Avatar
+const Avatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 5px;
+`;
+
+// Join Button Container
+const JoinButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 `;
 
 // Right-side calendar and tasks
 const RightContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0.8; /* Adjusted width to be smaller */
-  max-width: 300px; /* Added a max-width to prevent it from expanding too much */
+  flex: 0.8;
+  max-width: 300px;
 `;
 
 // Calendar Container
@@ -173,12 +196,12 @@ const Meeting = () => {
 
   return (
     <MainContainer>
-      {/* Sidebar is positioned to the left */}
+      {/* Sidebar */}
       <SidebarContainer>
         <Sidebar />
       </SidebarContainer>
 
-      {/* Right-side content container */}
+      {/* Right-side content */}
       <ContentContainer>
         {/* Middle content section (Upcoming and Previous Meetings) */}
         <MiddleContentContainer>
@@ -190,27 +213,50 @@ const Meeting = () => {
                 <span>13:00 - 24/06</span>
                 <span>+1</span>
               </MeetingInfo>
-              <JoinButton>Join</JoinButton>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+              </AttendeesContainer>
+              <JoinButtonContainer>
+                <JoinButton color="#ff5b5b">Join</JoinButton>
+              </JoinButtonContainer>
             </MeetingCard>
+
             <MeetingCard color="#ddf7dd">
               <MeetingTitle>Progress Meeting</MeetingTitle>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
                 <span>+1</span>
               </MeetingInfo>
-              <JoinButton>Join</JoinButton>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+              </AttendeesContainer>
+              <JoinButtonContainer>
+                <JoinButton color="#4caf50">Join</JoinButton>
+              </JoinButtonContainer>
             </MeetingCard>
+
             <MeetingCard color="#dde5fd">
               <MeetingTitle>Progress Meeting</MeetingTitle>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
                 <span>+1</span>
               </MeetingInfo>
-              <JoinButton>Join</JoinButton>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+              </AttendeesContainer>
+              <JoinButtonContainer>
+                <JoinButton color="#5f5fff">Join</JoinButton>
+              </JoinButtonContainer>
             </MeetingCard>
           </MeetingsSection>
 
-          <SectionHeader>Previous Meeting</SectionHeader>
+          <SectionHeader>Previous Meetings</SectionHeader>
           <MeetingsSection>
             <MeetingCard>
               <MeetingTitle>Progress Meeting</MeetingTitle>
@@ -253,16 +299,16 @@ const Meeting = () => {
               <TaskTime>12/09 - 20:30</TaskTime>
             </TaskItem>
             <TaskItem>
-              <TaskText>Presentation on the Project</TaskText>
-              <TaskTime>12/09 - 20:30</TaskTime>
+              <TaskText>Meeting with Clients</TaskText>
+              <TaskTime>13/09 - 10:00</TaskTime>
             </TaskItem>
             <TaskItem>
-              <TaskText>Presentation on the Project</TaskText>
-              <TaskTime>12/09 - 20:30</TaskTime>
+              <TaskText>Team Sync-up</TaskText>
+              <TaskTime>14/09 - 09:00</TaskTime>
             </TaskItem>
             <TaskItem>
-              <TaskText>Presentation on the Project</TaskText>
-              <TaskTime>12/09 - 20:30</TaskTime>
+              <TaskText>Final Report Review</TaskText>
+              <TaskTime>15/09 - 15:00</TaskTime>
             </TaskItem>
           </MyTasksContainer>
         </RightContentContainer>
