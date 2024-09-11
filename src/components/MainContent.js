@@ -8,6 +8,8 @@ const MainContentContainer = styled.div`
   flex-grow: 1;
   padding: 20px;
   background-color: #f0f0f0;
+  display:flex;
+  flex-direction:column;
 `;
 
 // Top Bar Components
@@ -149,33 +151,32 @@ const BottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 20px;
+
 `;
 
 const ChartContainer = styled.div`
   background-color: #f7f8fa;
   border-radius: 15px;
-  padding: 15px;
-  width: 55%;
+  padding-top:20px;
+  width: 60%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-  height:255px;
 `;
 
 const NotesContainer = styled.div`
   background-color: #f7f8fa;
   border-radius: 15px;
-  padding: 20px;
+  padding: 12px;
   width: 35%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height:250px;
   position: relative;
 `;
 
 // AddNoteButton for the plus icon
 const AddNoteButton = styled.div`
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 15px;
+  right: 20px;
   background-color: #34495e;
   color: white;
   border-radius: 50%;
@@ -253,11 +254,12 @@ const NoteText = styled.p`
 
 // Section Headings
 const SectionHeading = styled.h3`
-  margin: 0 0 15px 0;
+  margin: 0 0 16px 0;
   color: #333;
   font-size: 1.2rem;
   font-weight: 500;
 `;
+
 
 
 // Time Spent Data
