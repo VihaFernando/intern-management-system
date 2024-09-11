@@ -34,8 +34,8 @@ const ProfileHeader = styled.h1`
 `;
 
 const ProfileBanner = styled.div`
-  width: 100%;
-  max-width: 1200px;
+  width: 97%;
+  max-width: 1500px;
   min-height: 200px;
   background-image: url('banner.jpg'); /* Replace this with the correct path */
   background-size: cover;
@@ -74,8 +74,8 @@ const StatusBadge = styled.span`
 const InfoSectionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
+  width: 97%;
+  max-width: 1500px;
   margin-top: 40px;
   gap: 20px;
 `;
@@ -201,8 +201,8 @@ const ReplyButton = styled.button`
 `;
 
 const ProjectsSection = styled.div`
-  width: 95%;
-  max-width: 1200px;
+  width: 93%;
+  max-width: 1500px;
   margin-top: 40px;
   padding: 20px;
   background-color: #f8f9f9;
@@ -420,7 +420,7 @@ const ProfilePage = () => {
 
       const { error } = await supabase.from('experience').insert([
         {
-          user_email:email,
+          user_email: email,
           project_title: newProjectTitle,
           project_type: newProjectType,
           skills: newProjectLanguages,
@@ -569,16 +569,16 @@ const ProfilePage = () => {
         <ProjectsSection>
           <ProjectsHeader>Personal Projects</ProjectsHeader>
           <ProjectsContainer>
-          {projects.map((project) => (
-            <ProjectCard key={project.id}>
-              <ProjectImage src="banner.jpg" alt={project.project_title} />
-              <ProjectContent>
-                <ProjectTitle>{project.project_title}</ProjectTitle>
-                <ProjectSubtitle>{project.project_type}</ProjectSubtitle>
-                <p>{project.project_description}</p>
-                <ProjectButton>VIEW PROJECT</ProjectButton>
-              </ProjectContent>
-            </ProjectCard>
+            {projects.map((project) => (
+              <ProjectCard key={project.id}>
+                <ProjectImage src="banner.jpg" alt={project.project_title} />
+                <ProjectContent>
+                  <ProjectTitle>{project.project_title}</ProjectTitle>
+                  <ProjectSubtitle>{project.project_type}</ProjectSubtitle>
+                  <p>{project.project_description}</p>
+                  <ProjectButton>VIEW PROJECT</ProjectButton>
+                </ProjectContent>
+              </ProjectCard>
             ))}
 
             <NewProjectCard onClick={toggleModal}>
