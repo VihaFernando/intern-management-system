@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Sidebar from '../components/Sidebar'; // Import the Sidebar component you created earlier
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the calendar styles
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // <-- Add this import
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
 // Main Container to hold the sidebar and the content
 const MainContainer = styled.div`
@@ -78,11 +80,15 @@ const JoinButton = styled.button`
   padding: 10px 20px;
   border-radius: 25px;
   cursor: pointer;
-  margin-top: 10px;
   align-self: flex-end;
   &:hover {
     background-color: darken(${({ color }) => color || '#5f5fff'}, 10%);
   }
+`;
+
+const AttendiceJoin = styled.div`
+  display: inline-flex;
+  justify-content: space-between;
 `;
 
 // Meeting Info Section (Date, Time)
@@ -106,13 +112,6 @@ const Avatar = styled.img`
   height: 30px;
   border-radius: 50%;
   margin-right: 5px;
-`;
-
-// Join Button Container
-const JoinButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
 `;
 
 // Right-side calendar and tasks
@@ -187,6 +186,13 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
+
+const Topbar = styled.div`
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Meeting = () => {
   const [date, setDate] = useState(new Date());
 
@@ -208,51 +214,60 @@ const Meeting = () => {
           <SectionHeader>Upcoming Meetings</SectionHeader>
           <MeetingsSection>
             <MeetingCard color="#fddddd">
-              <MeetingTitle>Progress Meeting</MeetingTitle>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
               </MeetingInfo>
+              <AttendiceJoin>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
                 <span>+1</span>
               </AttendeesContainer>
-              <JoinButtonContainer>
                 <JoinButton color="#ff5b5b">Join</JoinButton>
-              </JoinButtonContainer>
+              </AttendiceJoin>
             </MeetingCard>
 
             <MeetingCard color="#ddf7dd">
-              <MeetingTitle>Progress Meeting</MeetingTitle>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
               </MeetingInfo>
+              <AttendiceJoin>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
                 <span>+1</span>
               </AttendeesContainer>
-              <JoinButtonContainer>
                 <JoinButton color="#4caf50">Join</JoinButton>
-              </JoinButtonContainer>
+              </AttendiceJoin>
             </MeetingCard>
 
             <MeetingCard color="#dde5fd">
-              <MeetingTitle>Progress Meeting</MeetingTitle>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
               </MeetingInfo>
+              <AttendiceJoin>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
                 <span>+1</span>
               </AttendeesContainer>
-              <JoinButtonContainer>
                 <JoinButton color="#5f5fff">Join</JoinButton>
-              </JoinButtonContainer>
+              </AttendiceJoin>
             </MeetingCard>
           </MeetingsSection>
 
