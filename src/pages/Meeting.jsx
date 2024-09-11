@@ -211,12 +211,12 @@ const Meeting = () => {
               <MeetingTitle>Progress Meeting</MeetingTitle>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
-                <span>+1</span>
               </MeetingInfo>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
               </AttendeesContainer>
               <JoinButtonContainer>
                 <JoinButton color="#ff5b5b">Join</JoinButton>
@@ -227,12 +227,12 @@ const Meeting = () => {
               <MeetingTitle>Progress Meeting</MeetingTitle>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
-                <span>+1</span>
               </MeetingInfo>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
               </AttendeesContainer>
               <JoinButtonContainer>
                 <JoinButton color="#4caf50">Join</JoinButton>
@@ -243,12 +243,12 @@ const Meeting = () => {
               <MeetingTitle>Progress Meeting</MeetingTitle>
               <MeetingInfo>
                 <span>13:00 - 24/06</span>
-                <span>+1</span>
               </MeetingInfo>
               <AttendeesContainer>
                 <Avatar src="profile-image.jpg" alt="Avatar 1" />
                 <Avatar src="profile-image.jpg" alt="Avatar 2" />
                 <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
               </AttendeesContainer>
               <JoinButtonContainer>
                 <JoinButton color="#5f5fff">Join</JoinButton>
