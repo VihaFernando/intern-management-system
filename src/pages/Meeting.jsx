@@ -5,7 +5,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the calendar styles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // <-- Add this import
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-solid-svg-icons'; // Import clock icon
 
 // Main Container to hold the sidebar and the content
 const MainContainer = styled.div`
@@ -15,10 +15,15 @@ const MainContainer = styled.div`
   width: 100vw;
 `;
 const TaskIcon = styled(FontAwesomeIcon)`
-  font-size: 1rem; /* Adjust size as necessary */
-  color: #7f8c8d;
-  margin-right: 10px;
+  font-size: 1.5rem; /* Adjust size to match the image */
+  color: #629591; /* Set the icon color to dark green */
+  background-color: #eaf2f2; /* Add light background similar to the image */
+  padding: 10px; /* Add padding around the icon */
+  border-radius: 12px; /* Rounded corners */
+  margin-right: 15px; /* Spacing between icon and text */
 `;
+
+
 // Sidebar remains fixed on the left side
 const SidebarContainer = styled.div`
   display: flex;
@@ -48,8 +53,8 @@ const MiddleContentContainer = styled.div`
 const SectionHeader = styled.h2`
   font-family: 'Times New Roman', Times, serif; /* Serif font */
   font-size: 1.5rem;
-  margin-top:0;
-  margin-bottom: 20px;
+  margin-top:20px;
+  margin-bottom: 30px;
   color: #333;
   text-align: left;
 `;
@@ -69,6 +74,11 @@ const PreviousMeetingsSection = styled.div`
   gap: 35px;
   width: 100%;
   margin-bottom: 30px;
+  justify-content: space-between;
+
+  & > div {
+    flex-basis: 43%;
+  }
 `;
 
 // Individual Meeting Cards (updated for image style)
@@ -96,7 +106,7 @@ const JoinButton = styled.button`
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 10px;
   cursor: pointer;
   align-self: flex-end;
   &:hover {
@@ -170,7 +180,7 @@ const CalendarContainer = styled.div`
 const MyTasksContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding:15px 15px 15px 15px;
+  padding:15px 0px 15px 21px;
  /* Adjusted padding */
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -180,10 +190,10 @@ const MyTasksContainer = styled.div`
 
 const TaskItem = styled.div`
   display: flex;
-  align-items: flex-start; /* Align items to the top */
+  align-items: center; /* Align items to the top */
   flex-direction: row;
   padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  
   font-family: 'Helvetica Neue', sans-serif;
   color: #333;
 
@@ -386,6 +396,46 @@ const Meeting = () => {
                 <span>+1</span>
               </AttendeesContainer>
             </MeetingCard>
+            <MeetingCard>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
+              <MeetingDetails>
+                <span>13:00 - 24/06</span>
+                <span>62 Minutes</span>
+              </MeetingDetails>
+              <p style={{ lineHeight: '1.8', paddingBottom: '20px', color: '#8d8d8b'}}>
+              The game features an anime-style open world environment and an action-based battle system using elemental magic and character-switching. 
+              A free-to-play game monetized through gacha game mechanics, Genshin Impact is updated regularly using the games as a service mode...
+              </p>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
+              </AttendeesContainer>
+            </MeetingCard>
+            <MeetingCard>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
+              <MeetingDetails>
+                <span>13:00 - 24/06</span>
+                <span>62 Minutes</span>
+              </MeetingDetails>
+              <p style={{ lineHeight: '1.8', paddingBottom: '20px', color: '#8d8d8b'}}>
+              The game features an anime-style open world environment and an action-based battle system using elemental magic and character-switching. 
+              A free-to-play game monetized through gacha game mechanics, Genshin Impact is updated regularly using the games as a service mode...
+              </p>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
+              </AttendeesContainer>
+            </MeetingCard>
             
           </PreviousMeetingsSection>
         </MiddleContentContainer>
@@ -399,30 +449,30 @@ const Meeting = () => {
 
           {/* Tasks Section */}
           <MyTasksContainer>
-            <SectionHeader>My Tasks</SectionHeader>
+          <SectionHeader style={{ marginTop: '10px', marginBottom: '15px' }}>My Tasks</SectionHeader>
             <TaskItem>
-              <TaskIcon icon={faCheckCircle} />
+              <TaskIcon icon={faClock} />
               <TaskTextContainer>
                 <TaskText>Presentation on the Project</TaskText>
                 <TaskTime>12/09 - 20:30</TaskTime>
               </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskIcon icon={faCheckCircle} />
+              <TaskIcon icon={faClock} />
               <TaskTextContainer>
                 <TaskText>Meeting with Clients</TaskText>
                 <TaskTime>13/09 - 10:00</TaskTime>
               </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskIcon icon={faCheckCircle} />
+              <TaskIcon icon={faClock} />
               <TaskTextContainer>
                 <TaskText>Team Sync-up</TaskText>
                 <TaskTime>14/09 - 09:00</TaskTime>
               </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskIcon icon={faCheckCircle} />
+              <TaskIcon icon={faClock} />
               <TaskTextContainer>
                 <TaskText>Final Report Review</TaskText>
                 <TaskTime>15/09 - 15:00</TaskTime>
