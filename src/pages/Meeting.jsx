@@ -5,6 +5,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the calendar styles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // <-- Add this import
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 // Main Container to hold the sidebar and the content
 const MainContainer = styled.div`
@@ -13,7 +14,11 @@ const MainContainer = styled.div`
   height: 100vh;
   width: 100vw;
 `;
-
+const TaskIcon = styled(FontAwesomeIcon)`
+  font-size: 1rem; /* Adjust size as necessary */
+  color: #7f8c8d;
+  margin-right: 10px;
+`;
 // Sidebar remains fixed on the left side
 const SidebarContainer = styled.div`
   display: flex;
@@ -41,8 +46,12 @@ const MiddleContentContainer = styled.div`
 
 // Section Headers
 const SectionHeader = styled.h2`
+  font-family: 'Times New Roman', Times, serif; /* Serif font */
+  font-size: 1.5rem;
+  margin-top:0;
   margin-bottom: 20px;
   color: #333;
+  text-align: left;
 `;
 
 // Meetings Containers
@@ -137,36 +146,45 @@ const RightContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.8;
-  max-width: 300px;
+  max-width: 350px;
+  min-width: 0;
+  margin-right:20px;
+  
 `;
 
 // Calendar Container
-const CalendarContainer = styled.div`
+const CalendarContainer = styled.div` 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 15px 10px; /* Adjusted padding */
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  margin-bottom: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  border-radius: 12px;
+  margin-bottom: 20px;
+  width: 100%; /* Reduced width */
+ ; /* To ensure it doesn't stretch too much */
 `;
 
 // Tasks Section
 const MyTasksContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding:15px 15px 15px 15px;
+ /* Adjusted padding */
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+  width: 100%; /* Full width */
 `;
 
 const TaskItem = styled.div`
   display: flex;
-  align-items: center;
-  padding: 10px;
+  align-items: flex-start; /* Align items to the top */
+  flex-direction: row;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
+  font-family: 'Helvetica Neue', sans-serif;
   color: #333;
 
   &:last-child {
@@ -174,36 +192,73 @@ const TaskItem = styled.div`
   }
 `;
 
+const TaskTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+`;
+
 const TaskTime = styled.div`
-  margin-left: auto;
+  font-size: 0.9rem;
   color: #777;
 `;
 
 const TaskText = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px; /* Space between task name and date/time */
 `;
 
 // Style customization for react-calendar component
 const StyledCalendar = styled(Calendar)`
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: none; /* Keep it flat without additional shadow */
+  border: none; /* Remove the default border */
+  width: 100%; /* Ensures calendar takes up available width */
+  
+  /* Reduced padding and font size for a compact look */
+  .react-calendar__tile {
+    padding: 8px; /* Reduced padding for a cleaner look */
+    font-size: 12px; /* Slightly smaller font size */
+    height: 40px; /* Adjust height to make it compact */
+    width: 40px; /* Adjust width to keep square shape */
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #ccc; /* Light gray for dates outside current month */
+  }
 
   .react-calendar__tile--now {
-    background: #000; /* Current day */
-    color: #fff;
+    background: #2980b9; /* Darker blue for today */
+    color: #fff; /* White text for today */
+    border-radius: 50%;
   }
 
   .react-calendar__tile--active {
-    background: #333; /* Active day */
-    color: #fff;
+    background: #1abc9c; /* Light teal for selected day */
+    color: #fff; /* White text */
+    border-radius: 50%;
   }
 
   .react-calendar__tile--hover {
-    background: #b3b3b3; /* Hover effect */
-    color: #fff;
+    background: #ddd; /* Lighter hover effect */
+    color: #333; /* Darker text on hover */
+    border-radius: 50%;
+  }
+
+  .react-calendar__navigation button {
+    min-width: 30px;
+    font-size: 1rem; /* Slightly smaller buttons */
+    color: #333; /* Dark text color for arrows */
+    background: none; /* Flat background */
+  }
+
+  .react-calendar__navigation__label {
+    font-weight: bold; /* Make the month/year label stand out */
+    font-size: 1.1rem; /* Reduce the size slightly */
+    color: #333;
   }
 `;
-
 
 const Topbar = styled.div`
   display: inline-flex;
@@ -339,7 +394,6 @@ const Meeting = () => {
         <RightContentContainer>
           {/* Calendar Section */}
           <CalendarContainer>
-            <SectionHeader>My Calendar</SectionHeader>
             <StyledCalendar onChange={onChange} value={date} />
           </CalendarContainer>
 
@@ -347,20 +401,32 @@ const Meeting = () => {
           <MyTasksContainer>
             <SectionHeader>My Tasks</SectionHeader>
             <TaskItem>
-              <TaskText>Presentation on the Project</TaskText>
-              <TaskTime>12/09 - 20:30</TaskTime>
+              <TaskIcon icon={faCheckCircle} />
+              <TaskTextContainer>
+                <TaskText>Presentation on the Project</TaskText>
+                <TaskTime>12/09 - 20:30</TaskTime>
+              </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskText>Meeting with Clients</TaskText>
-              <TaskTime>13/09 - 10:00</TaskTime>
+              <TaskIcon icon={faCheckCircle} />
+              <TaskTextContainer>
+                <TaskText>Meeting with Clients</TaskText>
+                <TaskTime>13/09 - 10:00</TaskTime>
+              </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskText>Team Sync-up</TaskText>
-              <TaskTime>14/09 - 09:00</TaskTime>
+              <TaskIcon icon={faCheckCircle} />
+              <TaskTextContainer>
+                <TaskText>Team Sync-up</TaskText>
+                <TaskTime>14/09 - 09:00</TaskTime>
+              </TaskTextContainer>
             </TaskItem>
             <TaskItem>
-              <TaskText>Final Report Review</TaskText>
-              <TaskTime>15/09 - 15:00</TaskTime>
+              <TaskIcon icon={faCheckCircle} />
+              <TaskTextContainer>
+                <TaskText>Final Report Review</TaskText>
+                <TaskTime>15/09 - 15:00</TaskTime>
+              </TaskTextContainer>
             </TaskItem>
           </MyTasksContainer>
         </RightContentContainer>
