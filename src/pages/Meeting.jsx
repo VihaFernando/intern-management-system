@@ -49,7 +49,15 @@ const SectionHeader = styled.h2`
 const MeetingsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
+  width: 100%;
+  margin-bottom: 30px;
+`;
+
+const PreviousMeetingsSection = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
   width: 100%;
   margin-bottom: 30px;
 `;
@@ -100,6 +108,14 @@ const MeetingInfo = styled.div`
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 15px;
+`;
+
+const MeetingDetails = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #777;
+
 `;
 
 // Attendee Icons Container
@@ -274,30 +290,49 @@ const Meeting = () => {
           </MeetingsSection>
 
           <SectionHeader>Previous Meetings</SectionHeader>
-          <MeetingsSection>
+          <PreviousMeetingsSection>
             <MeetingCard>
-              <MeetingTitle>Progress Meeting</MeetingTitle>
-              <MeetingInfo>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
+              <MeetingDetails>
                 <span>13:00 - 24/06</span>
                 <span>62 Minutes</span>
-              </MeetingInfo>
-              <p>
-                The game features an anime-style open world environment and an
-                action-based battle system using elemental magic...
+              </MeetingDetails>
+              <p style={{ lineHeight: '1.8', paddingBottom: '20px', color: '#8d8d8b'}}>
+              The game features an anime-style open world environment and an action-based battle system using elemental magic and character-switching. 
+              A free-to-play game monetized through gacha game mechanics, Genshin Impact is updated regularly using the games as a service mode...
               </p>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
+              </AttendeesContainer>
             </MeetingCard>
             <MeetingCard>
-              <MeetingTitle>Progress Meeting</MeetingTitle>
-              <MeetingInfo>
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
+              <MeetingDetails>
                 <span>13:00 - 24/06</span>
                 <span>62 Minutes</span>
-              </MeetingInfo>
-              <p>
-                The game features an anime-style open world environment and an
-                action-based battle system using elemental magic...
+              </MeetingDetails>
+              <p style={{ lineHeight: '1.8', paddingBottom: '20px', color: '#8d8d8b'}}>
+              The game features an anime-style open world environment and an action-based battle system using elemental magic and character-switching. 
+              A free-to-play game monetized through gacha game mechanics, Genshin Impact is updated regularly using the games as a service mode...
               </p>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
+              </AttendeesContainer>
             </MeetingCard>
-          </MeetingsSection>
+            
+          </PreviousMeetingsSection>
         </MiddleContentContainer>
 
         {/* Right-side content (Calendar and Tasks) */}

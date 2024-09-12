@@ -178,7 +178,7 @@ const Sidebar = () => {
         <FaUsers />
         <NavText>Company Team</NavText>
       </NavItem>
-      <NavItem>
+      <NavItem as={Link} to="/meeting">
         <FaVideo />
         <NavText>Meetings</NavText>
       </NavItem>
