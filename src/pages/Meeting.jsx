@@ -66,6 +66,11 @@ const MeetingsSection = styled.div`
   gap: 25px;
   width: 100%;
   margin-bottom: 30px;
+  justify-content: space-between;
+
+  & > div {
+    flex-basis: 43%;
+  }
 `;
 
 const PreviousMeetingsSection = styled.div`
@@ -74,6 +79,7 @@ const PreviousMeetingsSection = styled.div`
   gap: 35px;
   width: 100%;
   margin-bottom: 30px;
+  padding-bottom: 20px;
   justify-content: space-between;
 
   & > div {
@@ -352,6 +358,25 @@ const Meeting = () => {
                 <JoinButton color="#5f5fff">Join</JoinButton>
               </AttendiceJoin>
             </MeetingCard>
+
+            <MeetingCard color="#fddddd">
+              <Topbar>
+                <MeetingTitle>Progress Meeting</MeetingTitle>
+                <FontAwesomeIcon icon={faEllipsisH} size="1x" style={{ position: 'relative', top: '-3px' }}/>
+              </Topbar>
+              <MeetingInfo>
+                <span>13:00 - 24/06</span>
+              </MeetingInfo>
+              <AttendiceJoin>
+              <AttendeesContainer>
+                <Avatar src="profile-image.jpg" alt="Avatar 1" />
+                <Avatar src="profile-image.jpg" alt="Avatar 2" />
+                <Avatar src="profile-image.jpg" alt="Avatar 3" />
+                <span>+1</span>
+              </AttendeesContainer>
+                <JoinButton color="#ff5b5b">Join</JoinButton>
+              </AttendiceJoin>
+            </MeetingCard>
           </MeetingsSection>
 
           <SectionHeader>Previous Meetings</SectionHeader>
@@ -436,7 +461,6 @@ const Meeting = () => {
                 <span>+1</span>
               </AttendeesContainer>
             </MeetingCard>
-            
           </PreviousMeetingsSection>
         </MiddleContentContainer>
 
