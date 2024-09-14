@@ -51,9 +51,8 @@ const MiddleContentContainer = styled.div`
 
 // Section Headers
 const SectionHeader = styled.h2`
-  font-family: 'Times New Roman', Times, serif; /* Serif font */
   font-size: 1.5rem;
-  margin-top:20px;
+  margin-top: 10px;
   margin-bottom: 30px;
   color: #333;
   text-align: left;
